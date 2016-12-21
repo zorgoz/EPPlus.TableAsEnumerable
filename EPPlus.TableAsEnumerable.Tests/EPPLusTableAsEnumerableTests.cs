@@ -1,12 +1,11 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
+﻿using EPPLus.Extensions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.IO;
-using System.Reflection;
 using OfficeOpenXml;
-using EPPLus.Extensions;
+using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 
 namespace TESTS
 {
@@ -14,11 +13,11 @@ namespace TESTS
     /// Summary description for UnitTest1
     /// </summary>
     [TestClass]
-    public class EPPLusTableAsEnumerableTests
+    public class EPPlusTableAsEnumerableTests
     {
         public static ExcelPackage excelPackage;
 
-        public EPPLusTableAsEnumerableTests()
+        public EPPlusTableAsEnumerableTests()
         {
             // NOOP
         }
@@ -377,12 +376,16 @@ namespace TESTS
             {
                 list = enumerable.ToList();
             }
-            catch
+            catch(ExcelTableConvertException ex)
             {
+                Assert.IsTrue(ex.args.cellValue.ToString() == "MALE");
+                Assert.IsTrue(ex.args.expectedType == typeof(Class));
+                Assert.IsTrue(ex.args.propertyName.Equals("gender", StringComparison.InvariantCultureIgnoreCase));
+                Assert.IsTrue(ex.args.columnName.Equals("gender", StringComparison.InvariantCultureIgnoreCase));
                 return;
             }
 
-            Assert.Fail("We should get an exception");
+            Assert.Fail("We should get an ExcelTableConvertException");
         }
 
         [TestMethod]
