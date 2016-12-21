@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>zorgoz.EPPlus.TableAsEnumerable</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>zorgoz</authors>
+    <owners>zorgoz</owners>
+    <licenseUrl>https://github.com/zorgoz/EPPlus.TableAsEnumerable/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/zorgoz/EPPlus.TableAsEnumerable</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Generic extension method enabling retrival of ExcelTable rows as an enumeration of typed objects.</description>
+    <releaseNotes>First release</releaseNotes>
+    <copyright>Copyright 2016</copyright>
+    <tags>library .net Excel EPPlus helper generic extension</tags>
+  </metadata>
+</package>

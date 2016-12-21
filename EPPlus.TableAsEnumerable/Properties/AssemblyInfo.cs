@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("EEPLus.TableAsEnumerable")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("EPPlus.TableAsEnumerable")]
+[assembly: AssemblyDescription("Generic extension method enabling retrival ExcelTable rows as an enumeration of typed objects.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("EEPLus.TableAsEnumerable")]
-[assembly: AssemblyCopyright("Copyright ©  2016")]
+[assembly: AssemblyProduct("EPPlus.TableAsEnumerable")]
+[assembly: AssemblyCopyright("Copyright © Zoltán Zörgő 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: InternalsVisibleTo("TESTS")]
