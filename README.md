@@ -3,7 +3,7 @@ Generic extension method enabling retrival of ExcelTable rows as an enumeration 
 
 ## Synopsis
 
-This project adds an extension method to EPPlus ExcelTable objects that enables generic retrival of the data within. Solution supports numeric types, strings, nullables and enums. It is not enabling nor supporting changing of the data in the Excel table. 
+This project adds an extension method to EPPlus ExcelTable objects that enables generic retrival of the data within. Solution supports numeric types, strings, nullables and enums. It is not enabling nor supporting changing the data in the Excel table. 
 
 ## Complex code example 
 
@@ -74,7 +74,7 @@ With this library it is as simple as decorating the properties with `ExcelTableC
 }
 ```
 
-And than, when we have our table in EPPLus as ExcelTable, we can just enumerate the rows as objects:
+And than, when we have our table in EPPlus as ExcelTable, we can just enumerate the rows as objects:
 ```cs
 var table = excelPackage.Workbook.Worksheets["Cars"].Tables["Cars"];
 
@@ -88,14 +88,14 @@ foreach(var car in table.AsEnumerable<Cars>())
 Code is troughout documented, but here are the key elements one needs to know when using this library.
 
 ### ExcelTableColumnAttribute
-As can be noticed above, this attribute denotes property-column mapping. `ColumnName` parameter canbe used to map by column name, while `ColumnIndex` uses the *n*th one-based column. If no parameter is added, the mapping is done using the name of the decorated property.
+As can be noticed above, this attribute denotes property-column mapping. `ColumnName` parameter can be used to map by column name, while `ColumnIndex` uses the *n*th one-based column. If no parameter is added, the mapping is done using the name of the decorated property.
 Both parameters can not be given. Empty column name is also not accepted.
 
 ### ExcelTableConvertException and ExcelTableConvertExceptionArgs
-This cutom exception is thrown when setting property to a property is failing and the extension method is told not to skip errors (this is the default case). The exception object has an args property of `ExcelTableConvertExceptionArgs` that will hold the exact circumstances of the conversion error, including the original exception as inner exception.
+This cutom exception is thrown when setting a property to a cell value is failing and the extension method is told not to skip errors (this is the default case). The exception object has an `args` property of type `ExcelTableConvertExceptionArgs` that will hold the exact circumstances of the conversion error, including the original exception as inner exception.
 
 ### AsEnumerable extension method
-This generic method is doing the job, as can be seen in the example above. It returns an IEnumerable, which means that it is executed only when enumerated. Thus you might get well trough ihis call and get the exception when iterating or converting the result. 
+This generic method is doing the job, as can be seen in the example above. It returns an IEnumerable, which means that it is executed only when enumerated. Thus you might get well trough this call and get the exception when iterating or converting the result. 
 
 **Note:** only classes with parameterless constructor can be used as generating type.
 
@@ -103,20 +103,19 @@ This generic method is doing the job, as can be seen in the example above. It re
 **v1.0**
 * Every simple type can be mapped including numeric ones, bool, string, DateTime and enumerations.
 * Enumerations with underlaying type other than int are supported.
-* Both value and string representation of enumeration elements can be retrieved (even mixed)
-* Enums and column names are case insensitive
-* Nullable properties are supported
+* Both value and string representation of enumeration elements can be retrieved (even mixed).
+* Enums and column names are case insensitive.
+* Nullable properties are supported.
 * Complex type mappings are not suported *(might not be supported in the future either)*
-* It is not necessary to map all properties, and it is not necessary to map properties to all columns either. One column can be mapped to more than one property, even uder different type.
-* Mapping can be done by either the name or the index of the column. Automatic mapping to the property name is also possible.
-* .NET 4.6 is needed because of some reflection properties  
-
+* It is not necessary to map all properties, and it is not necessary to map property to all columns either. One column can be mapped to more than one property, even under different type.
+* Mapping can be done by either the name or the index of the column. Automatic mapping using property name is also possible.
+* .NET 4.6 is needed because of some reflection properties.
 
 ## Motivation
 
 [EPPlus](http://epplus.codeplex.com/) is a great tool allowing manipulation of Excel files of *xlsx* format files without the need of installed Excel instance and interop, by directly manipulating the OpenXML format. This is actually the only viable approach in many cases. 
 
-EPPlus lacks of some features, for example strongly typed access of data. This project aims to fill this gap partially by providing a way to read table objects stored in the worksheets as an enumerable of typed objects. 
+EPPlus lacks of some features, for example strongly typed access to data. This project aims to fill this gap partially by providing a way to read table objects stored in the worksheets as an enumerable of typed objects. 
 
 ## Installation
 
