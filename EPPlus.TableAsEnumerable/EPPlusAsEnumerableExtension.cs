@@ -212,7 +212,17 @@ namespace EPPLus.Extensions
                     }
                     catch(Exception ex)
                     {
-                        if (!skipCastErrors) throw ex;
+                        if (!skipCastErrors)
+                            throw new ExcelTableConvertException(
+                                "Cell casting error occures",
+                                ex,
+                                new ExcelTableConvertExceptionArgs {
+                                    columnName = table.Columns[map.Key].Name,
+                                    expectedType = type,
+                                    propertyName = property.Name,
+                                    cellValue = cell
+                                    }
+                                );
                     }
                 }
 

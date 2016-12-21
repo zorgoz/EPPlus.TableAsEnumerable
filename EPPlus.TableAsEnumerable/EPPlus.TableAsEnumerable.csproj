@@ -7,8 +7,8 @@
     <ProjectGuid>{5A40FC27-9C75-4023-8BAD-8233AF3EA710}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>EEPLus.TableAsEnumerable</RootNamespace>
-    <AssemblyName>EEPLus.TableAsEnumerable</AssemblyName>
+    <RootNamespace>EPPlus.Extensions</RootNamespace>
+    <AssemblyName>EPPlus.TableAsEnumerable</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -22,7 +22,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
-    <DocumentationFile>bin\Debug\EEPLus.TableAsEnumerable.XML</DocumentationFile>
+    <DocumentationFile>bin\Debug\EPPlus.TableAsEnumerable.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="EPPlusAsEnumerableExtension.cs" />
     <Compile Include="ExcelTableColumnAttribute.cs" />
+    <Compile Include="ExcelTableConvertException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
