@@ -16,6 +16,7 @@ using OfficeOpenXml.Table;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 
 namespace EPPLus.Extensions
@@ -81,7 +82,7 @@ namespace EPPLus.Extensions
             // Build property-table column mapping
             foreach (var property in propInfo)
             {
-                var eca = (ExcelTableColumnAttribute)property.GetCustomAttribute(typeof(ExcelTableColumnAttribute), true);
+                var eca = (ExcelTableColumnAttribute)property.GetCustomAttributes(typeof(ExcelTableColumnAttribute), true).First();
                 if (eca != null)
                 {
                     int col = -1;
@@ -131,7 +132,7 @@ namespace EPPLus.Extensions
                     // If type is nullable, get base type instead
                     if (property.PropertyType.IsNullable())
                     {
-                        type = property.PropertyType.GenericTypeArguments[0];
+                        type = type.GetGenericArguments()[0];
                     }
 
                     try // Try to set property to the value in the cell

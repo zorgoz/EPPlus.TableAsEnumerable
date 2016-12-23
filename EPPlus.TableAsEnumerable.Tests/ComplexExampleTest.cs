@@ -129,9 +129,9 @@ namespace TESTS
             Assert.IsTrue(list.All(x => x.manufacturer > 0), "All should have manufacturers");
             Assert.IsNull(list.Last().manufacturingDate, "The last one's manufacturing date is unknown");
             Assert.IsTrue(list.Count(x => x.manufacturingDate == null) == 1, "Only one manufacturig date is unknown");
-            Assert.IsTrue(list.Single( x => x.licensePlate == null) == list.Single(x => !x.ready), "The one without the license plate is not ready");
+            Assert.AreSame(list.Single( x => x.licensePlate == null) , list.Single(x => !x.ready), "The one without the license plate is not ready");
             Assert.IsTrue(list.Max(x => x.price) == 12000, "Highest price is 12000");
-            Assert.IsTrue(list.Max(x => x.manufacturingDate).Equals(new DateTime(2015,3,10)), "Highest price is 12000");
+            Assert.AreEqual(new DateTime(2015, 3, 10), list.Max(x => x.manufacturingDate), "Oldest was manufactured on 2015.03.10");
         }
 
     }

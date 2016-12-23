@@ -341,9 +341,9 @@ namespace TESTS
                 Assert.IsTrue(list.Count == 5, "We have expected 5 elements");
 
                 var a = list.FirstOrDefault(x => x.name == "Adam");
-                Assert.IsTrue(a.birthdate.Equals(new DateTime(1981, 4, 2)), "Adam' birthday is 1981.04.02");
+                Assert.AreEqual(new DateTime(1981, 4, 2), a.birthdate, "Adam' birthday is 1981.04.02");
 
-                Assert.IsTrue(list.Min(x => x.birthdate).Equals(new DateTime(1979, 12, 1)), "Oldest one was born on 1979.12.01");
+                Assert.AreEqual(new DateTime(1979, 12, 1), list.Min(x => x.birthdate), "Oldest one was born on 1979.12.01");
             }
             catch (Exception ex)
             {
@@ -380,8 +380,8 @@ namespace TESTS
             {
                 Assert.IsTrue(ex.args.cellValue.ToString() == "MALE");
                 Assert.IsTrue(ex.args.expectedType == typeof(Class));
-                Assert.IsTrue(ex.args.propertyName.Equals("gender", StringComparison.InvariantCultureIgnoreCase));
-                Assert.IsTrue(ex.args.columnName.Equals("gender", StringComparison.InvariantCultureIgnoreCase));
+                Assert.AreEqual("gender", ex.args.propertyName, true);
+                Assert.AreEqual("gender", ex.args.columnName, true);
                 return;
             }
 
