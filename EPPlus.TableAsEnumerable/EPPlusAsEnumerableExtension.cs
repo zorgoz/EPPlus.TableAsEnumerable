@@ -19,7 +19,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace EPPLus.Extensions
+namespace EPPlus.Extensions
 {
     /// <summary>
     /// Class holding extensien methods implemented

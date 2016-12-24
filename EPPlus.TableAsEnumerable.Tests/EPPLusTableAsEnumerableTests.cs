@@ -1,4 +1,4 @@
-﻿using EPPLus.Extensions;
+﻿using EPPlus.Extensions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OfficeOpenXml;
 using System;

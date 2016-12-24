@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EPPlusAsEnumerableExtension.cs" />
+    <Compile Include="ExcelPackageExtensions.cs" />
     <Compile Include="ExcelTableColumnAttribute.cs" />
     <Compile Include="ExcelTableConvertException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

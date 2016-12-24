@@ -100,7 +100,12 @@ This generic method is doing the job, as can be seen in the example above. It re
 **Note:** only classes with parameterless constructor can be used as generating type.
 
 ### Version history
-**v1.0**
+#### Pending (in repo, but not released yet)
+* Added extension methods to ExcelPackage type for easy access of tables: .GetTables, .HasTable, .GetTable
+* Corrected namespace name case
+* Converted to be .Net 4.0 Client Profile compatible
+
+#### v1.0
 * Every simple type can be mapped including numeric ones, bool, string, DateTime and enumerations.
 * Enumerations with underlaying type other than int are supported.
 * Both value and string representation of enumeration elements can be retrieved (even mixed).

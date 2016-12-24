@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using EPPLus.Extensions;
+using EPPlus.Extensions;
 
 namespace TESTS
 {

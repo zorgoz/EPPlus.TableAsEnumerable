@@ -14,7 +14,7 @@
 
 using System;
 
-namespace EPPLus.Extensions
+namespace EPPlus.Extensions
 {
     /// <summary>
     /// Attribute used to map property to Excel table column
