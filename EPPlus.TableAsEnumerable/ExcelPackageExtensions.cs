@@ -1,5 +1,5 @@
 ﻿/* 
- * Copyright (c) 2016 zoltan.zorgo@gmail.com
+ * Copyright (c) 2016 Zoltán Zörgő
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), 
  * to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, 
  * and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
@@ -28,6 +28,7 @@ namespace EPPlus.Extensions
         /// <summary>
         /// Method returns all table names in the opened worksheet
         /// </summary>
+        /// <remarks>Excel is ensuring the uniqueness of table names</remarks>
         /// <param name="excel">Extended ExcelPackage object</param>
         /// <returns>Enumeration of ExcelTables</returns>
         public static IEnumerable<ExcelTable> GetTables(this ExcelPackage excel)

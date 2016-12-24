@@ -101,6 +101,7 @@ This generic method is doing the job, as can be seen in the example above. It re
 
 ### Version history
 #### Pending (in repo, but not released yet)
+* Bugfix: taking into account table header and total row presence or absence
 * Added extension methods to ExcelPackage type for easy access of tables: .GetTables, .HasTable, .GetTable
 * Corrected namespace name case
 * Converted to be .Net 4.0 Client Profile compatible

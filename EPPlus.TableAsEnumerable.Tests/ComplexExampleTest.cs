@@ -82,7 +82,7 @@ namespace TESTS
 
             Assert.IsTrue(table.Address.Columns == 6, "Table3 is not as expected");
 
-            Assert.IsTrue(table.Address.Rows == 6, "Table3 has missing rows");
+            Assert.IsTrue(table.Address.Rows == 5 + (table.ShowTotal ? 1 : 0) + (table.ShowHeader ? 1 : 0), "Table3 has missing rows");
         }
 
         enum Manufacturers { Opel = 1, Ford, Toyota };
@@ -124,6 +124,7 @@ namespace TESTS
             Assert.IsNotNull(enumerable);
             list = enumerable.ToList();
 
+            Assert.IsTrue(list.Count() == 5, "We have 5 rows");
             Assert.IsTrue(list.Count(x => string.IsNullOrWhiteSpace(x.licensePlate)) == 1, "There is one without license plate");
             Assert.IsTrue(list.All(x => x.manufacturer > 0), "All should have manufacturers");
             Assert.IsNull(list.Last().manufacturingDate, "The last one's manufacturing date is unknown");
