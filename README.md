@@ -85,7 +85,7 @@ foreach(var car in table.AsEnumerable<Cars>())
 ```
 
 ## API reference
-Code is troughout documented, but here are the key elements one needs to know when using this library.
+Code is troughout documented, but here are the key elements one needs to know when using this library. Please read version history also.
 
 ### ExcelTableColumnAttribute
 As can be noticed above, this attribute denotes property-column mapping. `ColumnName` parameter can be used to map by column name, while `ColumnIndex` uses the *n*th one-based column. If no parameter is added, the mapping is done using the name of the decorated property.
@@ -94,17 +94,23 @@ Both parameters can not be given. Empty column name is also not accepted.
 ### ExcelTableConvertException and ExcelTableConvertExceptionArgs
 This cutom exception is thrown when setting a property to a cell value is failing and the extension method is told not to skip errors (this is the default case). The exception object has an `args` property of type `ExcelTableConvertExceptionArgs` that will hold the exact circumstances of the conversion error, including the original exception as inner exception.
 
-### AsEnumerable extension method
+### AsEnumerable<> extension method
 This generic method is doing the job, as can be seen in the example above. It returns an IEnumerable, which means that it is executed only when enumerated. Thus you might get well trough this call and get the exception when iterating or converting the result. 
+
+### Validate<> extension method
+While `AsEnumerable<>` stops at the first error, this generic method will return an enumeration of `ExcelTableConvertExceptionArgs` containing all errors encountered during a conversion attempt. This feature is usable to provide feedback to the user.
 
 **Note:** only classes with parameterless constructor can be used as generating type.
 
 ### Version history
-#### Pending (in repo, but not released yet)
+#### 1.1
 * Bugfix: taking into account table header and total row presence or absence
-* Added extension methods to ExcelPackage type for easy access of tables: .GetTables, .HasTable, .GetTable
+* Improved nullable/null handling. Still, as string is nullable by definition, can't be made *required* yet. 
+* Added extension methods to ExcelPackage type for easy access of tables: `.GetTables`, `.HasTable`, `.GetTable` (Names uniqueness across worksheet is are guaranteed by Excel and EPPlus as well)
 * Corrected namespace name case
 * Converted to be .Net 4.0 Client Profile compatible
+* `Validate` generic method added to get all conversion errors. 
+* New test added, some tests improved
 
 #### v1.0
 * Every simple type can be mapped including numeric ones, bool, string, DateTime and enumerations.

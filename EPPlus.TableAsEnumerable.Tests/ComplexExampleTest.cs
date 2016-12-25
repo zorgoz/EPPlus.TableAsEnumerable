@@ -115,8 +115,7 @@ namespace TESTS
         [TestMethod]
         public void TestComplexExample()
         {
-            var table = excelPackage.Workbook.Worksheets["TEST3"].Tables["TEST3"];
-
+            var table = excelPackage.GetTable("TEST3");
 
             IEnumerable<Cars> enumerable = table.AsEnumerable<Cars>();
             IList<Cars> list = null;

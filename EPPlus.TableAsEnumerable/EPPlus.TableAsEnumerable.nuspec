@@ -11,7 +11,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Generic extension method enabling retrival of ExcelTable rows as an enumeration of typed objects.</description>
     <summary>This project adds an extension method to EPPlus ExcelTable objects that enables generic retrival of the data within. Solution supports numeric types, strings, datetime, nullables and enums of a POCO with help of decorating attributes that enable property-column mapping.</summary>
-    <releaseNotes>Corrected namespace character case, added extension methods to ExcelPackage to easy access tables in the whole workbook.</releaseNotes>
+    <releaseNotes>Corrected namespace character case, added new features. Corrected header and totals row handling and null handling.</releaseNotes>
     <copyright>Copyright 2016</copyright>
     <tags>library .net Excel EPPlus helper generic extension</tags>
   </metadata>

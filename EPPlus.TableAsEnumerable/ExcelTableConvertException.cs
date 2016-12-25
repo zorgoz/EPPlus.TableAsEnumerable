@@ -12,6 +12,7 @@
  * IN THE SOFTWARE.
  */
 
+using OfficeOpenXml;
 using System;
 
 namespace EPPlus.Extensions
@@ -40,6 +41,11 @@ namespace EPPlus.Extensions
         /// Cell value returned by EPPlus
         /// </summary>
         public object cellValue { get; set; }
+
+        /// <summary>
+        /// Absolute address of the cell, where the conversion error occured
+        /// </summary>
+        public ExcelCellAddress cellAddress { get; set; }
     }
 
     /// <summary>

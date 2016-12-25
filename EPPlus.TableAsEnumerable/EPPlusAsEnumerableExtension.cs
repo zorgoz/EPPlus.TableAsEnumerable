@@ -12,6 +12,7 @@
  * IN THE SOFTWARE.
  */
 
+using OfficeOpenXml;
 using OfficeOpenXml.Table;
 using System;
 using System.Collections;
@@ -65,6 +66,67 @@ namespace EPPlus.Extensions
         #endregion
 
         /// <summary>
+        /// Method returns table data bounds with regards to header and totoals row visibility
+        /// </summary>
+        /// <param name="table">Extended object</param>
+        /// <returns>Address range</returns>
+        public static ExcelAddress GetDataBounds(this ExcelTable table)
+        {
+            return new ExcelAddress(
+                table.Address.Start.Row + (table.ShowHeader ? 1 : 0),
+                table.Address.Start.Column,
+                table.Address.End.Row - (table.ShowTotal ? 1 : 0),
+                table.Address.End.Column
+                );
+        }
+
+        /// <summary>
+        /// Method validates the excel table against the generating type. While AsEnumerable skips null cells, validation winn not.
+        /// </summary>
+        /// <typeparam name="T">Generating class type</typeparam>
+        /// <param name="table">Extended object</param>
+        /// <returns>An enumerable of <see cref="ExcelTableConvertExceptionArgs"/> containing </returns>
+        public static IEnumerable<ExcelTableConvertExceptionArgs> Validate<T>(this ExcelTable table) where T : class, new()
+        {
+            IList mapping = PrepareMappings<T>(table);
+            var result = new LinkedList<ExcelTableConvertExceptionArgs>();
+
+            var bounds = table.GetDataBounds();
+
+            T item = (T)Activator.CreateInstance(typeof(T));
+
+            // Parse table
+            for (int row = bounds.Start.Row; row <= bounds.End.Row; row++)
+            {
+                foreach (KeyValuePair<int, PropertyInfo> map in mapping)
+                {
+                    object cell = table.WorkSheet.Cells[row, map.Key + table.Address.Start.Column].Value;
+
+                    PropertyInfo property = map.Value;
+
+                    try
+                    {
+                        TrySetProperty(item, property, cell);
+                    }
+                    catch
+                    {
+                        result.AddLast( 
+                                new ExcelTableConvertExceptionArgs
+                                {
+                                    columnName = table.Columns[map.Key].Name,
+                                    expectedType = property.PropertyType,
+                                    propertyName = property.Name,
+                                    cellValue = cell,
+                                    cellAddress = new ExcelCellAddress(row, map.Key + table.Address.Start.Column)
+                    });
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        /// <summary>
         /// Generic extension method yielding objects of specified type from table.
         /// </summary>
         /// <remarks>Exceptions are not cathed. It works on all or nothing basis. 
@@ -79,10 +141,10 @@ namespace EPPlus.Extensions
         {
             IList mapping = PrepareMappings<T>(table);
 
+            var bounds = table.GetDataBounds();
+
             // Parse table
-            for (int row = table.Address.Start.Row + (table.ShowHeader ? 1 : 0); 
-                     row <= table.Address.End.Row - (table.ShowTotal ? 1 : 0); 
-                     row++)
+            for (int row = bounds.Start.Row; row <= bounds.End.Row; row++)
             {
                 T item = (T)Activator.CreateInstance(typeof(T));
 
@@ -90,21 +152,11 @@ namespace EPPlus.Extensions
                 {
                     object cell = table.WorkSheet.Cells[row, map.Key + table.Address.Start.Column].Value;
 
-                    if (cell == null) continue;
-
-                    var property = map.Value;
-
-                    Type type = property.PropertyType;
-
-                    // If type is nullable, get base type instead
-                    if (property.PropertyType.IsNullable())
-                    {
-                        type = type.GetGenericArguments()[0];
-                    }
+                    PropertyInfo property = map.Value;
 
                     try
                     {
-                        TrySetProperty(item, type, property, cell);
+                        TrySetProperty(item, property, cell);
                     }
                     catch (Exception ex)
                     {
@@ -115,9 +167,10 @@ namespace EPPlus.Extensions
                                 new ExcelTableConvertExceptionArgs
                                 {
                                     columnName = table.Columns[map.Key].Name,
-                                    expectedType = type,
+                                    expectedType = property.PropertyType,
                                     propertyName = property.Name,
-                                    cellValue = cell
+                                    cellValue = cell,
+                                    cellAddress = new ExcelCellAddress(row, map.Key + table.Address.Start.Column)
                                 }
                                 );
                     }
@@ -177,9 +230,24 @@ namespace EPPlus.Extensions
             return mapping;
         }
 
-        private static void TrySetProperty(object item, Type type, PropertyInfo property, object cell)
+        /// <summary>
+        /// Method tries to set property of item
+        /// </summary>
+        /// <param name="item">target object</param>
+        /// <param name="property">property to be set</param>
+        /// <param name="cell">cell value</param>
+        private static void TrySetProperty(object item, PropertyInfo property, object cell)
         {
-            var itemType = item.GetType();
+            Type type = property.PropertyType;
+            Type itemType = item.GetType();
+
+            // If type is nullable, get base type instead
+            if (property.PropertyType.IsNullable())
+            {
+                if (cell == null) return; // If it is nullable, and we have null we should not waste time
+                 
+                type = type.GetGenericArguments()[0];
+            }
 
             if (type == typeof(string))
             {
@@ -188,7 +256,7 @@ namespace EPPlus.Extensions
                 BindingFlags.Public | BindingFlags.Instance | BindingFlags.SetProperty,
                 null,
                 item,
-                new object[] { cell.ToString() });
+                new object[] { cell?.ToString() });
 
                 return;
             }

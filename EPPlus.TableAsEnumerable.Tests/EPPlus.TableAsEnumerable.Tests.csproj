@@ -65,6 +65,7 @@
   <ItemGroup>
     <Compile Include="ComplexExampleTest.cs" />
     <Compile Include="ExcelColumnAttributeTests.cs" />
+    <Compile Include="TableValidateTests.cs" />
     <Compile Include="ExcelPackageExtensionsTests.cs" />
     <Compile Include="TypeExtensionTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
