@@ -195,7 +195,7 @@ namespace EPPlus.Extensions
             // Build property-table column mapping
             foreach (var property in propInfo)
             {
-                var mappingAttribute = (ExcelTableColumnAttribute)property.GetCustomAttributes(typeof(ExcelTableColumnAttribute), true).First();
+                var mappingAttribute = (ExcelTableColumnAttribute)property.GetCustomAttributes(typeof(ExcelTableColumnAttribute), true).FirstOrDefault();
                 if (mappingAttribute != null)
                 {
                     int col = -1;

@@ -106,6 +106,7 @@ namespace TESTS
             [ExcelTableColumn(ColumnName = "Is ready for traffic?")]
             public bool ready { get; set; }
 
+            public string unmappedProperty { get; set; }
             public override string ToString()
             {
                 return $"{(color.ToString())} {(manufacturer.ToString())} {(manufacturingDate?.ToShortDateString())}";
