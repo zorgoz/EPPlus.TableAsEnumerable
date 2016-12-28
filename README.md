@@ -76,7 +76,7 @@ With this library it is as simple as decorating the properties with `ExcelTableC
 
 And than, when we have our table in EPPlus as ExcelTable, we can just enumerate the rows as objects:
 ```cs
-var table = excelPackage.Workbook.Worksheets["Cars"].Tables["Cars"];
+var table = excelPackage.GetTable("Cars"); // introduced in v1.1
 
 foreach(var car in table.AsEnumerable<Cars>())
 {
@@ -103,7 +103,7 @@ While `AsEnumerable<>` stops at the first error, this generic method will return
 **Note:** only classes with parameterless constructor can be used as generating type.
 
 ### Version history
-#### 1.1
+#### v1.1.x
 * Bugfix: taking into account table header and total row presence or absence
 * Improved nullable/null handling. Still, as string is nullable by definition, can't be made *required* yet. 
 * Added extension methods to ExcelPackage type for easy access of tables: `.GetTables`, `.HasTable`, `.GetTable` (Names uniqueness across worksheet is are guaranteed by Excel and EPPlus as well)
@@ -132,6 +132,7 @@ EPPlus lacks of some features, for example strongly typed access to data. This p
 ## Installation
 
 * Clone it, build it, use it!
+* Or download latest release from here (https://github.com/zorgoz/EPPlus.TableAsEnumerable/releases/latest)
 * Or get it from NuGet (https://www.nuget.org/packages/zorgoz.EPPlus.TableAsEnumerable/)
 * Or to install EPPlus.TableAsEnumerable, run the following command in the Package Manager Console: `Install-Package zorgoz.EPPlus.TableAsEnumerable`
 
