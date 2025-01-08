@@ -1,9 +1,11 @@
 # EPPlus.TableAsEnumerable
 Generic extension method enabling retrival of ExcelTable rows as an enumeration of typed objects.
 
+**If you are looking for a .Net core alternative, check out the port to ClosedXml: https://github.com/zorgoz/ClosedXml.TableAsEnumerable** 
+
 ## Synopsis
 
-This project adds an extension method to EPPlus ExcelTable objects that enables generic retrival of the data within. Solution supports numeric types, strings, nullables and enums. It is not enabling nor supporting changing the data in the Excel table. 
+This project adds an extension method to EPPlus ExcelTable objects that enables generic retrieval of the data within. Solution supports numeric types, strings, nullables and enums. It is not enabling nor supporting changing the data in the Excel table. 
 
 ## Complex code example 
 
